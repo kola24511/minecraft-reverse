@@ -1,0 +1,23 @@
+services:
+  traefik-reverse:
+    container_name: traefik-proxy
+    image: traefik:v3.3
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./configs/traefik.yaml:/etc/traefik/traefik.yaml"
+      - "../certs:/etc/ssl"
+    restart: unless-stopped
+    networks: 
+      - minecraft
+networks: 
+  minecraft:
+    driver: bridge
