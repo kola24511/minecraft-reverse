@@ -1,18 +1,14 @@
-SERVICE_NAME=app
 DOMAIN=localhost
-DC=$(if $(shell docker-compose --version 2>/dev/null),docker-compose,docker compose) -f traefik/docker-compose.yml
+DC=$(if $(shell docker-compose --version 2>/dev/null),docker-compose,docker compose) -f traefik/docker-compose.yml -f pterodactyl/panel/docker-compose.yml
 
-CERT_DIR=.certs
+CERT_DIR=certs
 CERT_FILE=$(CERT_DIR)/traefik-selfsigned.crt
 KEY_FILE=$(CERT_DIR)/traefik-selfsigned.key
 
 .DEFAULT_GOAL := up
-.PHONY:
+.PHONY: certs
 
 all: certs run
-
-in:
-	${DC} exec ${SERVICE_NAME} sh
 
 ###> DOCKER COMPOSE
 start:
