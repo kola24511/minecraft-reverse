@@ -4,8 +4,6 @@
 
 ### Команды
 
-    make in - перейти в контейнер (docker exec)
-
 	make up - обновить контейнеры (docker compose up -d)
 
     make stop - остановить контейнеры (docker compose stop)
